@@ -3,6 +3,7 @@ import axios from 'axios';
 import './App.css';
 
 
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -44,7 +45,7 @@ class App extends React.Component {
   }
 
   handleChange(event) {
-    this.setState({value: event.target.value, isEdit:true});
+    this.setState({value: event.target.value});
   }
 
   keyPress(e){
@@ -74,24 +75,21 @@ class App extends React.Component {
   addTodo(event){
    if(this.state.curId){
      this.saveTodo(this.state.curId);
-     this.setState({'value': '', isEdit: false})
-
    }
    else{
     axios.post("http://localhost:9000/v1/todo",
     {
       name: this.state.value
     })
-    .then(() => {
+    .then((doc) => {
       this.updateTodoList()
-      this.setState({'value': '', isEdit: false})
+      console.log({"Added": doc})
     })
-    .catch(er =>{
-      if(er.statusText === "404")
-        alert("todo already exists");
-      else
-        alert("Something wrong");
-      this.setState({'value': ''})
+    .catch(error =>{
+      console.log(error)
+      this.setState({'value': ''});
+      alert("Todo already in your list :)")
+      
     })
    }  
    event.preventDefault();
@@ -99,7 +97,7 @@ class App extends React.Component {
 
   editTodo(todo, event){
 
-    this.setState({'value': todo.name, 'isEdit': true, 'curId':todo._id})
+    this.setState({'value': todo.name, 'curId':todo._id})
     event.preventDefault();
 
   }
@@ -112,7 +110,6 @@ class App extends React.Component {
       .then((doc) => {
         console.log({"updated": doc})
         this.updateTodoList()
-        this.setState({'value': '', isEdit: false})
       })
       .catch(er =>{
         alert("todo already exists");
@@ -121,20 +118,19 @@ class App extends React.Component {
     
   }
 
-  deleteTodo(id, e){
-    e.preventDefault();
+  deleteTodo(id, event){
+    
     axios.delete(`http://localhost:9000/v1/todo/${id}`)
     .then((doc)=>{
      console.log({"Deleted":doc})
     })
     .then(() =>{
-      this.updateTodoList()
-      this.setState({'value':''})
+      this.updateTodoList();
     })
     .catch((error)=>{
       console.log(error);
     })
-
+    event.preventDefault();
   }
  
   render()
@@ -148,16 +144,16 @@ class App extends React.Component {
 
         <div className="input-group">
 
-          <input type="text" className="form-control" placeholder="Add Todo" value={this.state.value}  onChange={this.handleChange} onKeyDown={(e) => this.keyPress(e)} aria-label="Recipient's username with two button addons" aria-describedby="button-addon4" autoFocus={true}></input>
+          <input type="text" className="form-control" placeholder="Add Todo" value={this.state.value}  onChange={this.handleChange} onKeyDown={(e) => this.keyPress(e)} aria-label="Recipient's username with two button addons" aria-describedby="button-addon4" autoFocus></input>
 
           <button className="btn btn-success" type="button"  onClick= {(e) => this.addTodo(e)} >Add</button>  
-
+          
         </div> 
 
         <div className="jumbotron"> 
           {
             this.state.todos.map((todo) => (
-            <button key = {todo._id} className="btn-group" type="button" onClick = {(e) => this.editTodo(todo, e)}  onDoubleClick = {(e) => this.deleteTodo(todo._id, e)}  >{todo.name}</button>
+            <button key = {todo._id} className="btn-group" type="button" onClick = {(event) => this.editTodo(todo, event)}  onDoubleClick = {(event) => this.deleteTodo(todo._id, event)}  >{todo.name}</button>
             ))
           }
        
