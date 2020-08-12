@@ -9,10 +9,16 @@ exports.getTodos = async (req, res, next) => {
       {
         $project:{
           _id: 1,
-          name: 1,
+		  name: 1,
+		  createdAt: 1
         //   description: 1
         }
-      }
+	  },
+	  {
+		  $sort:{
+			  createdAt: -1
+		  }
+	  }
     ])
     res.status(200).send(docs);
   }
@@ -77,6 +83,28 @@ exports.putTodo = async(req, res) =>{
 					name: req.body.name
 				});
 				await doc.save();
+				res.status(200).send(doc)
+			}
+		}
+	}
+	catch(error){
+		res.status(400).send(error)
+	}
+}
+
+
+exports.getTodo = async(req, res) =>{
+	try{
+		if(!req.params.id){
+			res.status(400).send("Missing url parameter segment ")
+		}
+		else
+		{
+			const doc = await Todo.findOne({_id: req.params.id})
+			if(!doc){
+				res.status(400).send("Todo not found")
+			}
+			else{
 				res.status(200).send(doc)
 			}
 		}
