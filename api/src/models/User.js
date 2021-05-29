@@ -19,9 +19,11 @@ const userSchema = Schema({
     },
     passwordHash: {
         type: String,
-        required: true,
     },
-    email:{
+    salt: {
+        type: String
+    },
+    email: { 
         type: String,
         trim: true,
         lowercase: true,
