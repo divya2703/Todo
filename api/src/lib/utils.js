@@ -21,6 +21,8 @@ const PRIV_KEY = fs.readFileSync(pathToKey, 'utf8');
  */
 function validPassword(password, hash, salt) {
     var hashVerify = crypto.pbkdf2Sync(password, salt, 10000, 64, 'sha512').toString('hex');
+   // console.log(hash);
+   // console.log(hashVerify);
     return hash === hashVerify;
 }
 

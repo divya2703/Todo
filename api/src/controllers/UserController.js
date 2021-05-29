@@ -2,6 +2,11 @@ const _ = require('lodash')
 const User = require('../models/User')
 const utils = require('../lib/utils');
 
+
+exports.auth = async(  req, res ) =>{
+    res.status(200).json({ success: true, msg: "You are successfully authenticated to this route!"});
+}
+
 exports.getUsers = async(req, res) =>{
     const users = await User.find({});
     res.status(200).send(users);
@@ -38,9 +43,9 @@ exports.loginUser = async(req, res) =>{
         if (!user) {
             return res.status(401).send({ success: false, msg: "could not find user" });
         }
-        console.log(user);
+       // console.log(user);
         const isValid = utils.validPassword(req.body.password, user.hash, user.salt);
-        console.log(isValid)
+       // console.log(isValid)
         if (isValid) {
             const tokenObject = utils.issueJWT(user);
             res.status(200).json({ success: true, token: tokenObject.token, expiresIn: tokenObject.expires });
