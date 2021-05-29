@@ -11,7 +11,8 @@ router.post("/v1/todo", todoController.postTodo);
 router.put("/v1/todo/:id", todoController.putTodo);
 router.delete("/v1/todo/:id", todoController.deleteTodo);
 router.get("/v1/users", userController.getUsers);
-
+router.post("/v1/users", userController.registerUser);
+router.post("/v1/users/login", userController.loginUser);
 
 
 module.exports = router
