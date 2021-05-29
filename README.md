@@ -1,5 +1,5 @@
 # Just a basic TODO app
-Authors: @sahib-khan @divya2703
+
 ### Built on MERN stack
 
 To run the App,
@@ -9,3 +9,4 @@ To run the App,
 4. `cd ../todo` run `npm install`
 5. `cd ../`
 6. `npm run dev`
+https://dev.to/zachgoll/the-ultimate-guide-to-passport-js-k2l/#jwt-based-authentication-implementation
