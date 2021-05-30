@@ -1,5 +1,5 @@
 # Just a basic TODO app
-
+Authors: @sahib-khan @divya2703
 ### Built on MERN stack
 
 To run the App,
