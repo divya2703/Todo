@@ -1,10 +1,10 @@
 import React from 'react';
 import axios from 'axios';
-import './App.css';
+import './Todo.css';
 
 
 
-class App extends React.Component {
+class Todo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -137,13 +137,17 @@ class App extends React.Component {
   {      
     return (
       <div>
+
         <header >
           <h1> Your Todos</h1>
         </header>
 
         <div className="input-group">
+
           <input type="text" className="form-control" placeholder="Add Todo" value={this.state.value}  onChange={this.handleChange} onKeyDown={(e) => this.keyPress(e)} aria-label="Recipient's username with two button addons" aria-describedby="button-addon4" autoFocus></input>
-          <button className="btn btn-success" type="button"  onClick= {(e) => this.addTodo(e)} >Add</button>    
+
+          <button className="btn btn-success" type="button"  onClick= {(e) => this.addTodo(e)} >Add</button>  
+          
         </div> 
 
         <div className="jumbotron"> 
@@ -160,6 +164,6 @@ class App extends React.Component {
  
 }
 
-export default App;
+export default Todo;
 
 
