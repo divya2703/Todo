@@ -1,14 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 // import App from './App';
-import Todo from './components/Todo/Todo'
+// import Todo from './components/Todo/Todo'
+import SignUp from './components/Sign-Up/SignUp';
 import * as serviceWorker from './serviceWorker';
 
 
 ReactDOM.render(
   <React.StrictMode>
     {/* <App /> */}
-    <Todo/>
+    {/* <Todo/> */}
+  <SignUp/>
   </React.StrictMode>,
   document.getElementById('root')
 );

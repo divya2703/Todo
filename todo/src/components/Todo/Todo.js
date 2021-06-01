@@ -97,7 +97,7 @@ class Todo extends React.Component {
 
   editTodo(todo, event){
 
-    this.setState({'value': todo.name, 'curId':todo._id})
+    this.setState({'value': todo.name, 'curId': todo._id})
     event.preventDefault();
 
   }
